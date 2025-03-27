@@ -3,19 +3,19 @@ use dlopen_derive::WrapperApi;
 
 #[derive(WrapperApi)]
 struct BBApi {
-    start_bluebrick: extern "C" fn(platform: Platform, renderer: Renderer)
+    start_bluebrick: extern "C" fn(platform: Platform, renderer: Renderer),
 }
 
 #[repr(C)]
 #[derive(PartialEq, Clone, Copy)]
 pub enum Renderer {
-    DX9
+    DX9,
 }
 
 #[repr(C)]
 #[derive(PartialEq, Clone, Copy)]
 pub enum Platform {
-    Win32
+    Win32,
 }
 
 pub fn load_bluebrick(platform: Platform, renderer: Renderer) {
