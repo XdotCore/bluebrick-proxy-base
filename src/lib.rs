@@ -3,22 +3,22 @@ use dlopen_derive::WrapperApi;
 
 #[derive(WrapperApi)]
 struct BBApi {
-    start_bluebrick: extern "C" fn(platform: Platform, renderer: Renderer),
+    start_bluebrick: extern "C" fn(platform: RequestedPlatform, renderer: RequestedRenderer),
 }
 
 #[repr(C)]
 #[derive(PartialEq, Clone, Copy)]
-pub enum Renderer {
+pub enum RequestedRenderer {
     DX9,
 }
 
 #[repr(C)]
 #[derive(PartialEq, Clone, Copy)]
-pub enum Platform {
+pub enum RequestedPlatform {
     Win32,
 }
 
-pub fn load_bluebrick(platform: Platform, renderer: Renderer) {
+pub fn load_bluebrick(platform: RequestedPlatform, renderer: RequestedRenderer) {
     let bluebrick = match unsafe { Container::<BBApi>::load("bluebrick/bluebrick") } {
         Ok(bb) => bb,
         Err(e) => {
